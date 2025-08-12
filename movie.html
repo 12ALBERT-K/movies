@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KALIMOVIES</title>
+  <style>
+    body {
+      background: #121212;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      background: #1f1f1f;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+      width: 100%;
+    }
+    header button {
+      background: #ff3c3c;
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    header button:hover { background: #e23030; }
+    h1 { margin-top: 20px; text-transform: capitalize; }
+    p { max-width: 600px; text-align: center; margin-bottom: 20px; }
+    iframe {
+      width: 90vw;
+      height: 60vh;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      margin-bottom: 20px;
+    }
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      background: #ff3c3c;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .action-btn:hover { background: #e23030; }
+    .placeholder-btn {
+      background: #666;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .placeholder-btn:hover { background: #555; }
+    button.back {
+      background: #444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button.back:hover { background: #333; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>KALIMOVIES</h1>
+    <div>
+      <button onclick="window.location.href='index.html'">Home</button>
+      <button onclick="window.location.href='browse.html'">Browse</button>
+    </div>
+    <div id="profileArea"></div>
+  </header>
+
+  <h1 id="movieTitle">Loading...</h1>
+  <p id="movieDescription">Please wait...</p>
+  <div id="videoContainer"></div>
+  <div id="toggleBtnContainer"></div>
+  <button class="back" onclick="window.location.href='index.html'">Back to Home</button>
+
+  <script>
+    // Profile Loader
+    function loadProfile() {
+      const profileArea = document.getElementById('profileArea');
+      const savedName = localStorage.getItem('username');
+      const savedAvatar = localStorage.getItem('avatar');
+
+      if (savedName && savedAvatar) {
+        profileArea.innerHTML = `
+          <img src="${savedAvatar}" style="width:35px;height:35px;border-radius:50%;object-fit:cover;border:2px solid #ff3c3c;cursor:pointer;" onclick="window.location.href='profile.html'">
+          <span style="margin-left:10px;cursor:pointer;" onclick="window.location.href='profile.html'">${savedName}</span>
+        `;
+      } else {
+        profileArea.innerHTML = `<button onclick="window.location.href='profile.html'">My Profile</button>`;
+      }
+    }
+    loadProfile();
+
+    // Movies data (fullMovie links kept)
+    const movies = [
+      {id:1, title:"peter rabbit", desc:"An exciting adventure full of fun and surprises.", trailer:"https://www.youtube.com/embed/7Pa_Weidt08", fullMovie:"https://playerwish.com/d9rkhq4b5ehz"},
+      {id:2,title:"shaolin soccer",desc:"A thrilling journey that keeps you on the edge of your seat.",trailer:"https://www.youtube.com/embed/KEWUDWYDdYs",fullMovie:"https://hglink.to/0o7r2fqtg0z9"},
+      {id:3,title:"the dark tower",desc:"A heartwarming tale of friendship and courage.",trailer:"https://www.youtube.com/embed/DlxzbTK3YHc",fullMovie:"https://hglink.to/2huxeov8jovr"},
+      {id:4,title:"the continental",desc:"A mysterious story that unfolds in unexpected ways.",trailer:"https://www.youtube.com/embed/5HzrC80xYRI",fullMovie:"https://hglink.to/k9jptu8xrc2l"},
+      {id:5,title:"old way",desc:"An epic saga that spans generations.",trailer:"https://www.youtube.com/embed/_pYQ33Jtv3k",fullMovie:"https://dhcplay.com/9gk7awllle1h"},
+      {id:6,title:"mortal kombat",desc:"Fighters from different realms battle each other.",trailer:"https://www.youtube.com/embed/NYH2sLid0Zc",fullMovie:"https://playerwish.com/jkh8vngkvqbu"},
+      {id:7,title:"Frozen II",desc:"Elsa discovers the origins of her powers.",trailer:"https://www.youtube.com/embed/Zi4LMpSDccc",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/frozen-2-USbZa8Gyii3?id=2765617905336208048&type=/movie/detail"},
+      {id:8,title:"Inception",desc:"A thief enters dreams to steal secrets.",trailer:"https://www.youtube.com/embed/YoHD9XEInc0",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/inception-e1BOR6f19C7?id=6391474290696802080&type=/movie/detail"},
+      {id:9,title:"The Lion King A",desc:"Simba rises as king of the Pride Lands.",trailer:"https://www.youtube.com/embed/7TavVZMewpY",fullMovie:"https://iplayerhls.com/ncq1n2h5jmks"},
+      {id:10,title:"Shang-Chi",desc:"Shang-Chi confronts his father’s legacy.",trailer:"https://www.youtube.com/embed/8YjFbMbfXaQ",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/shang-chi-and-the-legend-of-the-ten-rings-A8nEw8QRz99?id=7683359582424812208&type=/movie/detail"},
+      {id:11,title:"Doctor Strange",desc:"A surgeon becomes the Sorcerer Supreme.",trailer:"https://www.youtube.com/embed/Lt-U_t2pUHI",fullMovie:"https://cybervynx.com/82s03coszqgp"},
+      {id:12,title:"Thor: Ragnarok",desc:"Thor battles Hela to save Asgard.",trailer:"https://www.youtube.com/embed/ue80QwXMRHg",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/thor-ragnarok-0OxnhcY1NX?id=809393712282353912&type=/movie/detail"},
+      {id:13,title:"Iron Man",desc:"Tony Stark becomes Iron Man.",trailer:"https://www.youtube.com/embed/8ugaeA-nMTc",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/iron-man-yxwdsuLS2t7?id=6268300615831947768&type=/movie/detail"},
+      {id:14,title:"Guardians of the Galaxy",desc:"Misfits unite to save the galaxy.",trailer:"https://www.youtube.com/embed/d96cjJhvlMA",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/guardians-of-the-galaxy-kyyopSH9fFa?id=8951323495452001320&type=/movie/detail"},
+      {id:15,title:"Captain Marvel",desc:"Carol Danvers becomes Captain Marvel.",trailer:"https://www.youtube.com/embed/Z1BCujX3pw8",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/captain-marvel-gGnd8uviXh9?id=7796772007806651056&type=/movie/detail"},
+      {id:16,title:"Avengers: Infinity War",desc:"The Avengers fight Thanos.",trailer:"https://www.youtube.com/embed/6ZfuNTqbHE8",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/avengers-infinity-war-kqyUcfKDuya?id=8859944774137176072&type=/movie/detail"},
+      {id:17,title:"Ant-Man",desc:"A hero shrinks to save the world.",trailer:"https://www.youtube.com/embed/pWdKf3MneyI",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/ant-man-0OxnhcY1NX?id=809393712282353912&type=/movie/detail"},
+      {id:18,title:"Deadpool",desc:"The Merc with a Mouth takes on villains.",trailer:"https://www.youtube.com/embed/ONHBaC-pfsk",
+      fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/deadpool-MiTOsbTc2C1?id=1354190728729084152&type=/movie/detail"},
+      {id:19,title:"Aquaman",desc:"Arthur Curry embraces his destiny.",trailer:"https://www.youtube.com/embed/WDkg3h8PCVU",
+      fullMovie:"https://drive.google.com/file/d/1Zae3z1lts3NbdJWuHvqNGAvT27uc4C87/view?usp=sharing"},
+      {id:20,title:"Wonder Woman",desc:"Diana fights in World War I.",trailer:"https://www.youtube.com/embed/1Q8fG0TtVAY",
+      fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/wonder-woman-sYtCKV6m7s3?id=2898542770870699048&type=/movie/detail"},
+      {id:21,title:"Justice League",desc:"DC heroes unite to save Earth.",trailer:"https://www.youtube.com/embed/r9-DM9uBtVI",
+      fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/justice-league-ONQ5wu0QNA5?id=4694713762098594040&type=/movie/detail"},
+      {id:22,title:"The Flash",desc:"Barry Allen saves the multiverse.",trailer:"https://www.youtube.com/embed/hebWYacbdvc",
+      fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/the-flash-ebYfq3Fgli1?id=1087610743698114736"},
+      {id:23,title:"Black Widow",desc:"Natasha confronts her past.",trailer:"https://www.youtube.com/embed/Fp9pNPdNwjI",fullMovie:"https://cybervynx.com/4z9zngpbppu3"},
+      {id:24,title:"Captain America: Civil War",desc:"Heroes clash over politics.",trailer:"https://www.youtube.com/embed/dKrVegVI0Us",fullMovie:"https://cybervynx.com/3q1tau0qty99"},
+      {id:25,title:"The Incredible Hulk",desc:"Bruce Banner becomes the Hulk.",trailer:"https://www.youtube.com/embed/xbqNb2PFKKA",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/the-incredible-hulk-QgJ0QNJaKT?id=754621222717116200&type=/movie/detail"},
+      {id:26,title:"Doctor Strange 2",desc:"Multiverse of Madness unfolds.",trailer:"https://www.youtube.com/embed/aWzlQ2N6qqg",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/doctor-strange-in-the-multiverse-of-madness-a9GflXIYqE9?id=8101068447863426648&type=/movie/detail"},
+      {id:27,title:"Venom",desc:"Eddie Brock bonds with a symbiote.",trailer:"https://www.youtube.com/embed/u9Mv98Gr5pY",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/venom-ocmi4TkYME8?id=7266571197197209384&type=/movie/detail"},
+      {id:28,title:"Suicide Squad",desc:"Villains team up for a mission.",trailer:"https://www.youtube.com/embed/CmRih_VtVAs",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/the-suicide-squad-2XXGwx1KMia?id=8647303623371808776&type=/movie/detail"},
+      {id:29,title:"The Dark Knight",desc:"Batman faces the Joker.",trailer:"https://www.youtube.com/embed/EXeTwQWrcwY",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/the-dark-knight-I0HXK8FO3k2?id=1950173900541676320&type=/movie/detail"},
+      {id:30,title:"Man of Steel",desc:"Clark Kent becomes Superman.",trailer:"https://www.youtube.com/embed/T6DJcgm3wNY",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/man-of-steel-OzxiHjFoPG4?id=3936977309407792944&type=/movie/detail"},
+      {id:31,title:"Eternals",desc:"Immortals emerge to save humanity.",trailer:"https://www.youtube.com/embed/x_me3xsvDgk",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/eternals-gKp46kMIgY5?id=5012373159673220696&type=/movie/detail"},
+      {id:32,title:"Avatar",desc:"Humans invade Pandora.",trailer:"https://www.youtube.com/embed/5PSNL1qE6VY",fullMovie:"https://fmoviesunblocked.net/spa/videoPlayPage/movies/avatar-WLDIi21IUBa?id=8906247916759695608&type=/movie/detail"}
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const movieId = parseInt(params.get("id"));
+    const movie = movies.find(m => m.id === movieId);
+
+    function updateTitle() {
+      document.title = `KALIMOVIES - ${movie.title}`;
+    }
+
+    function loadTrailer() {
+      updateTitle();
+      document.getElementById("videoContainer").innerHTML = `
+        <iframe src="${movie.trailer}" frameborder="0" allowfullscreen></iframe>
+      `;
+      document.getElementById("toggleBtnContainer").innerHTML = movie.fullMovie
+        ? `<button class="action-btn" onclick="loadFullMovie()">🎬 Watch ${movie.title} Now</button>`
+        : `<span class="placeholder-btn">No Full Movie Available</span>`;
+    }
+
+    function loadFullMovie() {
+      if (!movie.fullMovie) return;
+      window.open(movie.fullMovie, "_blank"); // open in new tab
+    }
+
+    if (movie) {
+      document.getElementById("movieTitle").textContent = movie.title;
+      document.getElementById("movieDescription").textContent = movie.desc;
+      loadTrailer();
+    } else {
+      document.getElementById("movieTitle").textContent = "Movie Not Found";
+      document.getElementById("movieDescription").textContent = "Sorry, this movie is not available.";
+      document.getElementById("toggleBtnContainer").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
