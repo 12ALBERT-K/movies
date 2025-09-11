@@ -1,59 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KALIMOVIES - Home</title>
 <style>
-  body {
-    margin: 0; font-family: Arial, sans-serif; background: #121212; color: #eee;
-  }
+  body {margin:0; font-family:Arial,sans-serif; background:#121212; color:#eee;}
   header {
-    background: #1f1f1f; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
+    background:#1f1f1f; padding:15px 30px;
+    display:flex; justify-content:space-between; align-items:center;
   }
   header button {
-    background: #ff3c3c; border: none; color: white; padding: 10px 18px; border-radius: 5px; cursor: pointer;
+    background:#ff3c3c; border:none; color:white;
+    padding:10px 18px; border-radius:5px; cursor:pointer;
   }
-  header button:hover {
-    background: #e23030;
-  }
-  main {
-    padding: 20px 30px;
-  }
-  h1 {
-    margin: 20px 0;
-  }
+  header button:hover {background:#e23030;}
+  main {padding:20px 30px;}
+  h1 {margin:20px 0;}
+  h2 {margin:25px 0 15px; font-size:1.4rem; color:#ff3c3c;}
   .movies {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:20px;
   }
   .movie-card {
-    background: #222; border-radius: 8px; cursor: pointer; overflow: hidden; transition: transform 0.3s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    background:#222; border-radius:8px; cursor:pointer;
+    overflow:hidden; transition:transform .3s;
+    box-shadow:0 2px 8px rgba(0,0,0,.7);
   }
-  .movie-card:hover {
-    transform: scale(1.05);
-  }
-  .movie-card img {
-    width: 100%; aspect-ratio: 2/3; object-fit: cover;
-  }
-  .movie-title {
-    padding: 10px; text-align: center;
-  }
+  .movie-card:hover {transform:scale(1.05);}
+  .movie-card img {width:100%; aspect-ratio:2/3; object-fit:cover;}
+  .movie-title {padding:10px; text-align:center;}
   footer {
-    background: #1f1f1f; text-align: center; padding: 20px; color: #aaa; margin-top: 20px;
+    background:#1f1f1f; text-align:center;
+    padding:20px; color:#aaa; margin-top:20px;
   }
-  footer a {
-    color: #ff3c3c; text-decoration: none; margin: 0 10px;
-  }
-  footer a:hover {
-    text-decoration: underline;
-  }
+  footer a {color:#ff3c3c; text-decoration:none; margin:0 10px;}
+  footer a:hover {text-decoration:underline;}
 </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4697032260913061"
-     crossorigin="anonymous"></script>
 </head>
 <body>
-<header> 
+
+<header>
   <h1>KALIMOVIES</h1>
   <div>
     <button onclick="location.href='index.html'">Home</button>
@@ -61,90 +49,81 @@
     <button onclick="location.href='profile.html'">Profile</button>
   </div>
 </header>
-<main>
+
+<main id="mainContent">
   <h1>All Movies</h1>
-  <div class="movies" id="moviesContainer"></div>
 </main>
+
 <footer>
-  <p>&copy; 2025 Mulisa 123. All Rights Reserved.</p>
+  <p>&copy; 2025 KALIMOVIES . All Rights Reserved.</p>
 </footer>
+
 <script>
 const movies = [
-   {id:1, title:"peter rabbit", poster:"peter.jpg", desc:"An exciting adventure full of fun and surprises.",
-       video:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"},
-      {id:2, title:"shaolin soccer", poster:"shaolinsoccer.jpg", desc:"A thrilling journey that keeps you on the edge of your seat.",
-       video:"SHAOLIN SOCCER.mp4"},
-      {id:3, title:"the dark tower", poster:"dark_tower.jpg", desc:"A heartwarming tale of friendship and courage.",
-       video:"THE DARK TOWER.mp4"},
-      {id:4, title:"the continental", poster:"continental.jpg", desc:"A mysterious story that unfolds in unexpected ways.",
-       video:"THE CONTINENTAL.mp4"},
-      {id:5, title:"old way", poster:"old_way.jpg", desc:"An epic saga that spans generations.",
-       video:"OLD WAY.mp4"},
-      {id:6,title:"mortal kombat",poster:"motalkombat.jpg",desc:"Fighters from different realms battle each other.",
-       video:"https://www.youtube.com/embed/mqqft2x_Aa4"},
-  {id:7,title:"Frozen II",poster:"https://image.tmdb.org/t/p/w500/pjeMs3yqRmFL3giJy4PMXWZTTPa.jpg",desc:"Elsa discovers the origins of her powers.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:8,title:"Inception",poster:"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",desc:"A thief enters dreams to steal secrets.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:9,title:"The Lion King",poster:"https://image.tmdb.org/t/p/w500/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg",desc:"Simba rises as king of the Pride Lands.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:10,title:"Shang-Chi",poster:"https://image.tmdb.org/t/p/w500/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg",desc:"Shang-Chi confronts his father’s legacy.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:11,title:"Doctor Strange",poster:"doctorstrange.jpg",desc:"A surgeon becomes the Sorcerer Supreme.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:12,title:"Thor: Ragnarok",poster:"https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",desc:"Thor battles Hela to save Asgard.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:13,title:"Iron Man",poster:"https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg",desc:"Tony Stark becomes Iron Man.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:14,title:"Guardians of the Galaxy",poster:"https://image.tmdb.org/t/p/w500/r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg",desc:"Misfits unite to save the galaxy.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:15,title:"Captain Marvel",poster:"https://image.tmdb.org/t/p/w500/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",desc:"Carol Danvers becomes Captain Marvel.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:16,title:"Avengers: Infinity War",poster:"https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",desc:"The Avengers fight Thanos.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:17,title:"Ant-Man",poster:"antman.jpg",desc:"A hero shrinks to save the world.",},
-  {id:18,title:"Deadpool",poster:"https://image.tmdb.org/t/p/w500/fSRb7vyIP8rQpL0I47P3qUsEKX3.jpg",desc:"The Merc with a Mouth takes on villains.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:19,title:"Aquaman",poster:"https://image.tmdb.org/t/p/w500/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg",desc:"Arthur Curry embraces his destiny.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:20,title:"Wonder Woman",poster:"https://image.tmdb.org/t/p/w500/imekS7f1OuHyUP2LAiTEM0zBzUz.jpg",desc:"Diana fights in World War I.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:21,title:"Justice League",poster:"https://image.tmdb.org/t/p/w500/eifGNCSDuxJeS1loAXil5bIGgvC.jpg",desc:"DC heroes unite to save Earth.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:22,title:"The Flash",poster:"flash.jpg",desc:"Barry Allen saves the multiverse.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:23,title:"Black Widow",poster:"https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg",desc:"Natasha confronts her past.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:24,title:"Captain America: Civil War",poster:"captain.jpg",desc:"Heroes clash over politics.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:25,title:"The Incredible Hulk",poster:"https://image.tmdb.org/t/p/w500/gKzYx79y0AQTL4UAk1cBQJ3nvrm.jpg",desc:"Bruce Banner becomes the Hulk.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:26,title:"Doctor Strange 2",poster:"https://image.tmdb.org/t/p/w500/wRnbWt44nKjsFPrqSmwYki5vZtF.jpg",desc:"Multiverse of Madness unfolds.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:27,title:"Venom",poster:"https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg",desc:"Eddie Brock bonds with a symbiote.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:28,title:"Suicide Squad",poster:"https://image.tmdb.org/t/p/w500/xFw9RXKZDvevAGocgBK0zteto4U.jpg",desc:"Villains team up for a mission.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:29,title:"The Dark Knight",poster:"https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",desc:"Batman faces the Joker.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:30,title:"Man of Steel",poster:"man.jpg",desc:"Clark Kent becomes Superman.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:31,title:"Eternals",poster:"https://image.tmdb.org/t/p/w500/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg",desc:"Immortals emerge to save humanity.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"},
-  {id:32,title:"Avatar",poster:"https://image.tmdb.org/t/p/w500/6EiRUJpuoeQPghrs3YNktfnqOVh.jpg",desc:"Humans invade Pandora.",
-  video:"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"}
+  {id:1,title:"Peter Rabbit",poster:"peter.jpg",desc:"Adventure full of fun.",genre:"Family"},
+  {id:2,title:"Shaolin Soccer",poster:"shaolinsoccer.jpg",desc:"Funny soccer action.",genre:"Comedy"},
+  {id:3,title:"The Dark Tower",poster:"dark_tower.jpg",desc:"Fantasy quest.",genre:"Fantasy"},
+  {id:4,title:"The Continental",poster:"continental.jpg",desc:"Mysterious crime story.",genre:"Action"},
+  {id:5,title:"Old Way",poster:"old_way.jpg",desc:"Epic western.",genre:"Action"},
+  {id:6,title:"Mortal Kombat",poster:"motalkombat.jpg",desc:"Battle of realms.",genre:"Action"},
+  {id:7,title:"Frozen II",poster:"https://image.tmdb.org/t/p/w500/pjeMs3yqRmFL3giJy4PMXWZTTPa.jpg",desc:"Elsa’s journey.",genre:"Animation"},
+  {id:8,title:"Inception",poster:"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",desc:"Dream heist.",genre:"Sci-Fi"},
+  {id:9,title:"The Lion King",poster:"https://image.tmdb.org/t/p/w500/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg",desc:"Pride Lands king.",genre:"Animation"},
+  {id:10,title:"Shang-Chi",poster:"https://image.tmdb.org/t/p/w500/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg",desc:"Martial hero.",genre:"Action"},
+  {id:11,title:"Doctor Strange",poster:"doctorstrange.jpg",desc:"Sorcerer Supreme.",genre:"Action"},
+  {id:12,title:"Thor: Ragnarok",poster:"https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",desc:"Save Asgard.",genre:"Action"},
+  {id:13,title:"Iron Man",poster:"https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg",desc:"Tony Stark builds armor.",genre:"Action"},
+  {id:14,title:"Guardians of the Galaxy",poster:"https://image.tmdb.org/t/p/w500/r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg",desc:"Save the galaxy.",genre:"Sci-Fi"},
+  {id:15,title:"Captain Marvel",poster:"https://image.tmdb.org/t/p/w500/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",desc:"Carol Danvers rises.",genre:"Action"},
+  {id:16,title:"Avengers: Infinity War",poster:"https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",desc:"Fight Thanos.",genre:"Action"},
+  {id:17,title:"Ant-Man",poster:"antman.jpg",desc:"Hero shrinks to save world.",genre:"Action"},
+  {id:18,title:"Deadpool",poster:"https://image.tmdb.org/t/p/w500/fSRb7vyIP8rQpL0I47P3qUsEKX3.jpg",desc:"Irreverent hero.",genre:"Comedy"},
+  {id:19,title:"Aquaman",poster:"https://image.tmdb.org/t/p/w500/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg",desc:"Underwater king.",genre:"Action"},
+  {id:20,title:"Wonder Woman",poster:"https://image.tmdb.org/t/p/w500/imekS7f1OuHyUP2LAiTEM0zBzUz.jpg",desc:"WWI warrior.",genre:"Action"},
+  {id:21,title:"Justice League",poster:"https://image.tmdb.org/t/p/w500/eifGNCSDuxJeS1loAXil5bIGgvC.jpg",desc:"DC heroes unite.",genre:"Action"},
+  {id:22,title:"The Flash",poster:"flash.jpg",desc:"Saves multiverse.",genre:"Action"},
+  {id:23,title:"Black Widow",poster:"https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg",desc:"Natasha’s past.",genre:"Action"},
+  {id:24,title:"Captain America: Civil War",poster:"captain.jpg",desc:"Heroes clash.",genre:"Action"},
+  {id:25,title:"The Incredible Hulk",poster:"https://image.tmdb.org/t/p/w500/gKzYx79y0AQTL4UAk1cBQJ3nvrm.jpg",desc:"Banner becomes Hulk.",genre:"Action"},
+  {id:26,title:"Doctor Strange 2",poster:"https://image.tmdb.org/t/p/w500/wRnbWt44nKjsFPrqSmwYki5vZtF.jpg",desc:"Multiverse Madness.",genre:"Action"},
+  {id:27,title:"Venom",poster:"https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg",desc:"Symbiote bond.",genre:"Action"},
+  {id:28,title:"Suicide Squad",poster:"https://image.tmdb.org/t/p/w500/xFw9RXKZDvevAGocgBK0zteto4U.jpg",desc:"Villains mission.",genre:"Action"},
+  {id:29,title:"The Dark Knight",poster:"https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",desc:"Batman vs Joker.",genre:"Action"},
+  {id:30,title:"Man of Steel",poster:"man.jpg",desc:"Clark becomes Superman.",genre:"Action"},
+  {id:31,title:"Eternals",poster:"https://image.tmdb.org/t/p/w500/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg",desc:"Immortals save humanity.",genre:"Sci-Fi"},
+  {id:32,title:"Avatar",poster:"https://image.tmdb.org/t/p/w500/6EiRUJpuoeQPghrs3YNktfnqOVh.jpg",desc:"Pandora story.",genre:"Sci-Fi"}
 ];
+
 localStorage.setItem('movies', JSON.stringify(movies));
-const container = document.getElementById('moviesContainer');
+
+// group by genre
+const genres = {};
 movies.forEach(m => {
-  const card = document.createElement('div');
-  card.className = 'movie-card';
-  card.onclick = () => location.href = `movie.html?id=${m.id}`;
-  card.innerHTML = `<img src="${m.poster}" alt="${m.title}">
-                    <div class="movie-title">${m.title}</div>`;
-  container.appendChild(card);
+  if (!genres[m.genre]) genres[m.genre] = [];
+  genres[m.genre].push(m);
+});
+
+const main = document.getElementById('mainContent');
+Object.keys(genres).forEach(genre => {
+  const section = document.createElement('section');
+  section.innerHTML = `<h2>${genre}</h2>`;
+  const grid = document.createElement('div');
+  grid.className = 'movies';
+
+  genres[genre].forEach(movie => {
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    card.onclick = () => location.href=`movie.html?id=${movie.id}`;
+    card.innerHTML = `
+      <img src="${movie.poster}" alt="${movie.title}">
+      <div class="movie-title">${movie.title}</div>
+    `;
+    grid.appendChild(card);
+  });
+
+  section.appendChild(grid);
+  main.appendChild(section);
 });
 </script>
 </body>
 </html>
-
